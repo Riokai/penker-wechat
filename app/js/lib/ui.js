@@ -1,3 +1,8 @@
+/**
+ * @description UI模块
+ * @author Kai
+ */
+
 define(['selector'], function(s) {
 
   var UI = function() {
