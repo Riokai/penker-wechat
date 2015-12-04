@@ -1,0 +1,24 @@
+{
+  "name": "workspace",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Kai"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.10.6",
+    "normalize-css": "normalize.css#~3.0.3",
+    "zepto": "~1.1.6"
+  }
+}

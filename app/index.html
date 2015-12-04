@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>与导购聊天</title>
+  <link rel="stylesheet" href="./assets/normalize-css/normalize.css">
+  <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="login" style="padding: 20px;">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Username</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="input_name" placeholder="Username" autofocus>
+        </div>
+      </div>
+      <div class="form-group">
+        <label  class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="input_pwd" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-10 text-center">
+          <button type="button" class="btn btn-primary" id="btn_login">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="guide">
+    
+  </div>
+  <div class="chat">
+    <header class="chat-header">
+      <img class="chat-header-avatar" src="images/avatar.png" height="68" width="68">
+      <div class="chat-header-text">
+        <p>Kai</p>
+        <p>Kai的导购微店</p>
+      </div>
+      <button class="chat-header-btn">切换导购</button>
+    </header>
+    <section class="chat-content">
+      <ul class="msg-list">
+        <li class="msg-list-time">
+          <span>查看历史消息</span>
+        </li>
+        <li class="msg-list-time">
+          <span>10-20 18:00</span>
+        </li>
+        <li class="msg-list-content me">
+          <div class="pic">
+            <img src="images/avatar.png" alt="">
+          </div>
+          <div>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+        </li>
+        <li class="msg-list-content guide">
+          <div class="pic">
+            <img src="images/avatar.png" alt="">
+          </div>
+          <div>aaaaaaaaaaaaa</div>
+        </li>
+      </ul>
+    </section>
+    <footer class="chat-footer">
+      <div class="chat-footer-btn face">
+        <button class="chat-footer-emotion icon-btn icon-face"></button>
+      </div>
+      <div class="chat-footer-input">
+        <textarea id="message"></textarea>
+      </div>
+      <div class="chat-footer-btn send">
+        <button id="btn_send">发送</button>
+      </div>
+    </footer>
+      
+    </div>
+  </div>
+  
+  <script src="assets/web-im-1.0.7.2/sdk/jquery-1.11.1.js"></script>  
+  <script src="assets/web-im-1.0.7.2/sdk/strophe.js"></script>
+  <script src="assets/web-im-1.0.7.2/sdk/json2.js"></script>
+  <script src="assets/web-im-1.0.7.2/sdk/easemob.im-1.0.7.js"></script>
+  <script src="assets/require.js" data-main="js/main"></script>
+</body>
+</html>

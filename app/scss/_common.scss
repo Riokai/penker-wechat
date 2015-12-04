@@ -1,0 +1,38 @@
+.text-center {
+  text-align: center !important;
+}
+
+.bg-violet {
+  background-color: #912abc;
+}
+
+.bg-red-deep {
+  background-color: #e50576;
+}
+
+.bg-red-middle {
+  background-color: #f42521;
+}
+
+.bg-red-light {
+  background-color: #ff6536;
+}
+
+.bg-yello-light {
+  background-color: #ff9800;
+}
+
+.bg-yello-deep {
+  background-color: #ffc107;
+}
+
+.bg-green {
+    background-color: #48bf26;
+}
+
+// @for $i from 1 through 10 {
+//   .width-#{$i} {
+//     display: inline-block;
+//     width: $i * 10% !important;
+//   }
+// }

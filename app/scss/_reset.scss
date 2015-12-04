@@ -1,0 +1,127 @@
+@charset "utf-8";
+
+html {
+  font-family: "Microsoft YaHei",Tahoma,Verdana,STHeiTi,simsun,sans-serif;
+  font-size: 62.5%;
+}
+
+html, body {
+  height: 100%;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+textarea, input, button {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// 禁止被选中效果
+div, button, p {
+  -webkit-user-select:none;
+}
+
+// 清除浮动
+.clearfix { 
+  *zoom: 1; 
+} 
+
+.clearfix:before, 
+.clearfix:after { 
+  display: table; 
+  line-height: 0; 
+  content: ""; 
+} 
+ 
+.clearfix:after { 
+  clear: both; 
+}
+
+// body {
+//   margin: 0;
+//   padding: 0;
+// }
+
+* {
+  box-sizing: border-box;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #abadb2;
+}
+
+*[class^="icon-"] {
+  background-repeat: no-repeat;
+}
+
+.icon-btn {
+  background: url(../images/icon-btn.png) no-repeat;
+  background-size: 125px auto;
+}
+
+.icon-img {
+  background-position: -65px 3px;
+}
+
+.icon-voice {
+  // background-position: 0 3px;
+  background-image: url(../images/icon/voice.png);
+}
+
+.icon-face {
+  // background-position: -33px 3px;
+  background-image: url(../images/icon/emotion.png);
+}
+
+.icon-plus {
+  background-image: url(../images/icon/plus.png);
+}
+
+.icon-arrow {
+  background-image: url(../images/icon/arrow-right.png);
+}
+
+.icon-phone {
+  background-image: url(../images/icon/phone.png);
+}
+
+.icon-location {
+  background-image: url(../images/icon/location.png);
+}
+
+.icon-contact {
+  background-image: url(../images/icon/contact.png);
+}
+
+.icon-sender {
+  background-image: url(../images/icon/sender.png);
+}
+
+.icon-toolbar {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px auto;
+}
+
+.icon-guide {
+  background: url(../images/icon/switch-guide.png) no-repeat;
+}
+
+
