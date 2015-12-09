@@ -4,11 +4,13 @@
  */
 
 define(['selector', 'ui', 'config'], function(selector, ui) {
+// define(['Easemob', 'selector', 'ui', 'config'], function(Easemob, selector, ui) {
 
   var Chat = function() {
     this.connection = null;
     this.curUserId = '';
-    this.curChatUserId = '';
+    // this.curChatUserId = '';
+    this.curChatUserId = 'test2';
 
     this.bothRoster = [];
     this.toRoster = [];
@@ -39,7 +41,8 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
         https : Easemob.im.config.https,
         url: Easemob.im.config.xmppURL,
         onOpened: function() {
-          self.handleOpened();
+          console.log('connecion open');
+          self.handleOpened(self.connection);
         },
         onClosed: function() {
           self.handleClosed();
@@ -47,12 +50,27 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
         onError: function() {
           self.handleError();
         },
-        onTextMessage: function(msg) {
-          self.handleTextMessage(msg);
+        onRoster: function() {
+
+        },
+        //收到文本消息时的回调方法
+        onTextMessage : function(msg) {
+          var message = msg.data;
+
+          console.log('receive', message);
+          self.handleTextMessage(message);
         },
         onEmotionMessage: function(msg) {
           self.handleEmotion(msg);
-        }
+        },
+        onPictureMessage: function(msg) {
+          self.handlePictureMessage(msg);
+        },
+        //收到联系人订阅请求的回调方法
+        onPresence : function(msg) {
+          console.log('presence');
+          // self.handlePresence(message);
+        },
       });
     },
 
@@ -77,20 +95,18 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
       }
     },
 
-    handleOpened: function() {
+    handleOpened: function(conn) {
       var self = this;
 
       ui.showChat();
 
-      self.curUserId = self.connection.context.userId;
+      self.curUserId = conn.context.userId;
 
       console.log('uid', self.curUserId);
 
-      self.connection.getRoster({
+      conn.getRoster({
         success: function(roster) {
           var ros = null;
-
-          console.log('roster', roster);
 
           for (var i in roster) {
             ros = roster[i];
@@ -103,10 +119,18 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
             }
           }
 
-          console.log('bothRoster', self.bothRoster);
-          console.log('toRoster', self.toRoster);
+          // console.log('bothRoster', self.bothRoster);
+          // console.log('toRoster', self.toRoster);
         }
       });
+
+      // 设置用户上线状态
+      conn.setPresence();
+
+      if (conn.isOpened()) {
+        console.log('connection is open');
+        conn.heartBeat(conn);
+      }
     },
 
     handleClosed: function() {
@@ -118,7 +142,19 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
     },
 
     handleTextMessage: function(message) {
-      console.log('message', message);
+      this.appendMsg(false, message);
+    },
+    
+    handleEmotion: function(message) {
+      
+    },
+
+
+    handlePictureMessage: function(message) {
+      // 带扩展名的文件名称
+      var filname = message.filename;
+      var from = message.from;
+      var msgType = message.type;
     },
 
     login: function(name, pwd) {
@@ -139,7 +175,7 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
       var timerClearSending = null;
       var options = {
         to: self.curChatUserId,
-        // to: 'testpk',
+        // to: 'test2',
         msg: msg,
         type: 'chat'
       };
@@ -160,10 +196,87 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
 
       this.connection.sendTextMessage(options);
 
+      this.appendMsg(true, msg);
+
       // 重置发送状态
       timerClearSending = setTimeout(function() {
         self.textSending = false;
       }, 1000);
+
+    },
+
+    sendPic: function(id) {
+
+      var self = this;
+      var to = self.curChatUserId;
+
+      var fileObj = null;
+      var fileType = '';
+      var fileName = '';
+
+      if (to === '') {
+        alert('请选择联系人！');
+
+        return;
+      }
+
+      fileObj = Easemob.im.Helper.getFileUrl(id);
+
+      if (fileObj.url === null || fileObj.url === '') {
+        alert('请选择发送图片！');
+
+        return;
+      }
+
+      fileType = fileObj.filetype;
+      fileName = fileObj.filename;
+
+      if (fileType in self.picType) {
+        var opt = {
+          fileInputId: id,
+          to: to,
+          onFileUploadError: function(err) {
+            console.log('send image error');
+            console.error('err', err);
+          },
+          onFileUploadComplete: function(data) {
+            console.log('send image complete');
+            console.log('data', data);
+          }
+        }
+
+        self.connection.sendPicture(opt);
+
+        return;
+      }
+
+      alert('不支持的文件类型', fileType);
+
+    },
+
+    appendMsg: function(isSelf, message) {
+      var $container = $(selector.messageList);
+      var content = '';
+
+      console.log('append message', message);
+
+      if (isSelf) {
+        content = '<li class="msg-list-content me">' +
+                    '<div class="pic">' + 
+                      '<img src="images/avatar.png" alt="">' + 
+                    '</div>' + 
+                    '<div>' + message + '</div>' + 
+                  '</li>';
+      } else {
+        content = '<li class="msg-list-content guide">' +
+                    '<div class="pic">' + 
+                      '<img src="images/avatar.png" alt="">' + 
+                    '</div>' + 
+                    '<div>' + message + '</div>' + 
+                  '</li>';
+      }
+
+      $container.append(content);
 
     }
   };

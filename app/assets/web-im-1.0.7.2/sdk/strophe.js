@@ -5386,6 +5386,7 @@ Strophe.Websocket.prototype = {
      */
     _onMessage: function(message) {
         var elem, data;
+        // console.log('message', message);
         // check for closing stream
         var close = '<close xmlns="urn:ietf:params:xml:ns:xmpp-framing" />';
         if (message.data === close) {

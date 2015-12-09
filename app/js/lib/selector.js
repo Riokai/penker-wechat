@@ -11,9 +11,11 @@ define({
   // 登录密码
   inputPass: '#input_pwd',
   // 登录按钮
+  inputImage: '#input_image',
   btnLogin: '#btn_login',
   // 发送消息按钮
   btnSend: '#btn_send',
   // 消息内容
-  message: '#message'
+  message: '#message',
+  messageList: '.msg-list'
 });

@@ -15,9 +15,13 @@ define(['selector'], function(s) {
     init: function(chat) {
       this.chat = chat;
       this.showLogin();
-      this.bindLogin();
+      // this.showChat();
       this.bindSend();
+      this.bindLogin();
+      this.bindInputSend();
+      this.bindSendImage();
     },
+    
     showLogin: function() {
       $(s.login).show();
       $(s.chat).hide();
@@ -50,7 +54,34 @@ define(['selector'], function(s) {
 
         self.chat.sendText(msg);
       })
-    }
+    },
+
+    bindInputSend: function() {
+      var self = this;
+
+      $(s.message).on('keydown', function(e) {
+        var msg = $(s.message).val();
+        
+
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          $(s.message).val('');
+          self.chat.sendText(msg);
+        }
+      })
+    },
+
+    bindSendImage: function() {
+      var self = this;
+
+      $(s.inputImage).on('change', function() {
+        
+        if ($(this).val() !== '') {
+          self.chat.sendPic(s.inputImage.substring(1));
+        }
+
+      })
+    },
   }
 
   return new UI();

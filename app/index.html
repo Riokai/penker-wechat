@@ -12,20 +12,20 @@
   <div class="login" style="padding: 20px;">
     <form class="form-horizontal">
       <div class="form-group">
-        <label class="col-sm-2 control-label">Username</label>
+        <label class="col-sm-2 control-label">用户名</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="input_name" placeholder="Username" autofocus>
+          <input type="text" class="form-control" id="input_name" placeholder="用户名" autofocus>
         </div>
       </div>
       <div class="form-group">
-        <label  class="col-sm-2 control-label">Password</label>
+        <label  class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" id="input_pwd" placeholder="Password">
+          <input type="password" class="form-control" id="input_pwd" placeholder="密码">
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-10 text-center">
-          <button type="button" class="btn btn-primary" id="btn_login">Login</button>
+          <button type="button" class="btn btn-primary" id="btn_login">登录</button>
         </div>
       </div>
     </form>
@@ -40,6 +40,7 @@
         <p>Kai</p>
         <p>Kai的导购微店</p>
       </div>
+      <input id="input_image" type="file">
       <button class="chat-header-btn">切换导购</button>
     </header>
     <section class="chat-content">
@@ -80,9 +81,13 @@
   </div>
   
   <script src="assets/web-im-1.0.7.2/sdk/jquery-1.11.1.js"></script>  
+  
+  <!--
+  -->
   <script src="assets/web-im-1.0.7.2/sdk/strophe.js"></script>
   <script src="assets/web-im-1.0.7.2/sdk/json2.js"></script>
   <script src="assets/web-im-1.0.7.2/sdk/easemob.im-1.0.7.js"></script>
+  
   <script src="assets/require.js" data-main="js/main"></script>
 </body>
 </html>
