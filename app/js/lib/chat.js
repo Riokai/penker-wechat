@@ -143,20 +143,57 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
     },
 
     handleTextMessage: function(message) {
+      var msgFrom = message.from;
+      var msgType = message.type;
+      var msgTo = message.to;
+
       ui.scrollToBottom();
-      this.appendMsg(false, message);
+      this.appendMsg(msgFrom, msgTo, message);
     },
     
     handleEmotionMessage: function(message) {
+      var msgFrom = message.from;
+      var msgType = message.type;
+      var msgTo = message.to;
+
       ui.scrollToBottom();
-      this.appendMsg(false, message);
+      this.appendMsg(msgFrom, msgTo, message);
     },
 
     handlePictureMessage: function(message) {
       // 带扩展名的文件名称
-      var filname = message.filename;
-      var from = message.from;
+      var msgName = message.filename;
+      // 文件发送者
+      var msgFrom = message.from;
       var msgType = message.type;
+      var options = message;
+
+      options.onFileDownloadComplete = function(res, xhr) {
+        var objUrl = Easemob.im.Helper.parseDownloadResponse.call(this, response);
+
+        var img = document.createElement('img');
+
+        img.onload = function(e) {
+          img.onload = null;
+
+
+        }
+      };
+
+      // 下载失败时重新下载（1次）
+      options.onFileDownloadError = function(err) {
+        if (redownLoadFileNum < 1) {
+          redownLoadFileNum++;
+
+          Easemob.im.Helper.donwload(options);
+        } else {
+
+        }
+      }
+
+      var redownLoadFileNum = 0;
+
+      Easemob.im.Helper.donwload(options);
     },
 
     login: function(name, pwd) {
@@ -204,7 +241,7 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
 
       this.connection.sendTextMessage(options);
 
-      this.appendMsg(true, msg);
+      this.appendMsg(this.curUserId, self.curChatUserId, msg);
 
       // 重置发送状态
       timerClearSending = setTimeout(function() {
@@ -262,13 +299,12 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
 
     },
 
-    appendMsg: function(isSelf, message) {
+    appendMsg: function(from, to, message) {
       var $container = $(selector.messageList);
       var content = '';
       var msgResult = '';
       var type = '';
       var data = '';
-
 
       console.log('typeof message = ', typeof message);
       
@@ -299,7 +335,7 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
 
       // console.log('message result', msgResult);
 
-      if (isSelf) {
+      if (from === this.curUserId) {
         content = '<li class="msg-list-content me">' +
                     '<div class="pic">' + 
                       '<img src="images/avatar.png" alt="">' + 
