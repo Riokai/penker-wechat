@@ -24,14 +24,6 @@ module.exports = function(grunt) {
         hostname: '0.0.0.0',
         livereload: 35729,
         base: 'app'
-        // middleware: function(connect, options) {
-          
-        //   return [
-        //     connect.static(options.base)
-        //   ];
-
-        // }
-        // keepalive: true
       },
       livereload: {
         // options: {
@@ -41,26 +33,17 @@ module.exports = function(grunt) {
         // },
         options: {
           open: false
-        },
-
-        middleware: function(connect) {
-          return [
-            // connect.static(appConfig.app),
-            // connect().use(
-            //   '/bower_components',
-            //   connect.static('./bower_components')
-            // ),
-            // require('connect-livereload')()
-          ];
         }
       }
     },
 
     sprite: {
       all: {
-        src: '<%= yeoman.app %>/images/*.png',
-        dest: '<%= yeoman.app %>/images/build/sprites.png',
-        destCss: '<%= yeoman.app %>/css/sprites.css'
+        src: '<%= yeoman.app %>/images/icon/*.png',
+        dest: '<%= yeoman.app %>/images/sprites.png',
+        destCss: '<%= yeoman.app %>/css/sprites.css',
+        algorithm: 'top-down',
+        padding: 20
       }
     },
 
@@ -80,9 +63,13 @@ module.exports = function(grunt) {
         files: [
           '<%= yeoman.app %>/{,**/}*.html',
           '<%= yeoman.app %>/css/{,**/}*.css',
-          '<%= yeoman.app %>/js/{*,**/}*.js'
+          '<%= yeoman.app %>/js/{*,**/}*.js',
         ]
       }
+      // sprites: {
+      //   files: ['<%= yeoman.app %>/images/icon/*.png'],
+      //   tasks: ['sprite']
+      // }
       
     },
 
@@ -162,10 +149,6 @@ module.exports = function(grunt) {
       html: ['<%= yeoman.dist %>/{,**/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       js: '<%= yeoman.dist %>/scripts/*.js',
-    },
-
-    concat: {
-
     },
 
     timestamp: {
