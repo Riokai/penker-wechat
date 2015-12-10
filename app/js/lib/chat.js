@@ -269,30 +269,35 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
       var type = '';
       var data = '';
 
-      console.log('append message', message);
+
+      console.log('typeof message = ', typeof message);
       
       // 解析文本
       if (typeof message === 'string') {
         message = Easemob.im.Helper.parseTextMessage(message);
+
+        for (var i=0; i<message.body.length; i++) {
+          if (message.body[i].type === 'emotion') {
+            msgResult += '<img class="emotion" src="' + message.body[i].data + '"/>';
+          } else {
+            msgResult += message.body[i].data;
+          }
+        }
       } else if (typeof message === 'object') {
-        
+        for (var i=0; i<message.data.length; i++) {
+          if (message.data[i].type === 'emotion') {
+            msgResult += '<img class="emotion" src="' + message.data[i].data + '"/>';
+          } else {
+            msgResult += message.data[i].data;
+          }
+        }
       } else {
         console.warn('message is not string');
 
         return;
       }
 
-      console.log('message', message);
-
-      for (var i=0; i<message.body.length; i++) {
-        if (message.body[i].type === 'emotion') {
-          msgResult += '<img class="emotion" src="' + message.body[i].data + '"/>';
-        } else {
-          msgResult += message.body[i].data;
-        }
-      }
-
-      console.log('message result', msgResult);
+      // console.log('message result', msgResult);
 
       if (isSelf) {
         content = '<li class="msg-list-content me">' +
