@@ -17,5 +17,10 @@ define({
   btnSend: '#btn_send',
   // 消息内容
   message: '#message',
-  messageList: '.msg-list'
+  messageList: '.msg-list',
+  // 消息容器
+  messageContainer: '.chat-content',
+  // 表情容器
+  emotionContainer: '.chat-footer-emotion',
+  emotionToggle: '.icon-emotion'
 });

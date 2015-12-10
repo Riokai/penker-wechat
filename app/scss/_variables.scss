@@ -5,6 +5,7 @@ $shop-header-bg: #f8f8f8;
 $shop-header-height: 40px;
 
 // 聊天头部
+$chat-padding-around: 10px;
 $chat-header-height: 60px;
 $chat-header-padding: 2px;
 $avatar-size: 40px;
@@ -21,7 +22,8 @@ $msg-guide-bg: #fff;
 $msg-text-height: 40px;
 
 // 聊天工具栏
-$chat-footer-height: 50px;
+$chat-input-height: 50px;
+$chat-plus-height: 50px;
 $chat-footer-bg: #f8f8f8;
 $footer-input-border-color: #959595;
 $btn-emotion-width: 30px;
@@ -34,3 +36,5 @@ $city-bg: #f5f5f5;
 $city-border-color: #dcdcdc;
 $city-item-width: 30%;
 $city-item-height: 30px;
+
+$emotion-size: 20px;

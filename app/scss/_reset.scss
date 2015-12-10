@@ -27,7 +27,7 @@ textarea, input, button {
 
 // 禁止被选中效果
 div, button, p {
-  -webkit-user-select:none;
+  // -webkit-user-select:none;
 }
 
 // 清除浮动
@@ -122,6 +122,20 @@ button {
 
 .icon-guide {
   background: url(../images/icon/switch-guide.png) no-repeat;
+}
+
+.icon {
+  &-emotion {
+    background-image: url('/images/icon/emotion.png');
+  }
+
+  &-sender {
+    background-image: url('/images/icon/sender.png');
+  }
+
+  &-plus {
+    background-image: url('/images/icon/plus.png');
+  }
 }
 
 

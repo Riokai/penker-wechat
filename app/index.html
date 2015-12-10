@@ -6,6 +6,7 @@
   <title>与导购聊天</title>
   <link rel="stylesheet" href="./assets/normalize-css/normalize.css">
   <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="css/sprites.css"> -->
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -14,34 +15,51 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">用户名</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="input_name" placeholder="用户名" autofocus>
+          <input
+            id="input_name"
+            type="text"
+            class="form-control"
+            placeholder="用户名"
+            autofocus>
         </div>
       </div>
       <div class="form-group">
-        <label  class="col-sm-2 control-label">密码</label>
+        <label class="col-sm-2 control-label">密码</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" id="input_pwd" placeholder="密码">
+          <input
+            type="password"
+            class="form-control"
+            id="input_pwd"
+            placeholder="密码">
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-10 text-center">
-          <button type="button" class="btn btn-primary" id="btn_login">登录</button>
+          <button
+            type="button"
+            class="btn
+            btn-primary"
+            id="btn_login">登录</button>
         </div>
       </div>
     </form>
   </div>
-  <div class="guide">
+  <!-- <div class="guide">
     
-  </div>
+  </div> -->
   <div class="chat">
     <header class="chat-header">
-      <img class="chat-header-avatar" src="images/avatar.png" height="68" width="68">
+      <img
+        class="chat-header-avatar"
+        src="images/avatar.png"
+        height="68"
+        width="68">
       <div class="chat-header-text">
         <p>Kai</p>
         <p>Kai的导购微店</p>
       </div>
-      <input id="input_image" type="file">
-      <button class="chat-header-btn">切换导购</button>
+      <!-- <input id="input_image" type="file"> -->
+      <!-- <button class="chat-header-btn">切换导购</button> -->
     </header>
     <section class="chat-content">
       <ul class="msg-list">
@@ -55,26 +73,28 @@
           <div class="pic">
             <img src="images/avatar.png" alt="">
           </div>
-          <div>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+          <div>aaaaaaaaaaaaaaaaaaaaaaa</div>
         </li>
         <li class="msg-list-content guide">
           <div class="pic">
             <img src="images/avatar.png" alt="">
           </div>
-          <div>aaaaaaaaaaaaa</div>
+          <div>bbbbbbbbbbbbbbbbbbbbbbb</div>
         </li>
       </ul>
     </section>
     <footer class="chat-footer">
-      <div class="chat-footer-btn face">
-        <button class="chat-footer-emotion icon-btn icon-face"></button>
-      </div>
       <div class="chat-footer-input">
-        <textarea id="message"></textarea>
+        <div class="icon icon-emotion"></div>
+        <div class="icon icon-plus">
+          <input id="input_image" type="file">
+        </div>
+        <div class="text-area">
+          <textarea id="message"></textarea>
+        </div>
+        <div class="icon icon-sender" id="btn_send"></div>
       </div>
-      <div class="chat-footer-btn send">
-        <button id="btn_send">发送</button>
-      </div>
+      <div class="chat-footer-emotion"></div>
     </footer>
       
     </div>

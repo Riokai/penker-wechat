@@ -57,11 +57,12 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
         onTextMessage : function(msg) {
           var message = msg.data;
 
-          console.log('receive', message);
+          console.log('receive text message', message);
           self.handleTextMessage(message);
         },
         onEmotionMessage: function(msg) {
-          self.handleEmotion(msg);
+          console.log('receive emotion message', msg);
+          self.handleEmotionMessage(msg);
         },
         onPictureMessage: function(msg) {
           self.handlePictureMessage(msg);
@@ -142,13 +143,14 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
     },
 
     handleTextMessage: function(message) {
+      ui.scrollToBottom();
       this.appendMsg(false, message);
     },
     
-    handleEmotion: function(message) {
-      
+    handleEmotionMessage: function(message) {
+      ui.scrollToBottom();
+      this.appendMsg(false, message);
     },
-
 
     handlePictureMessage: function(message) {
       // 带扩展名的文件名称
@@ -158,8 +160,8 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
     },
 
     login: function(name, pwd) {
-      console.log('name', name);
-      console.log('pwd', pwd);
+      console.log('login name', name);
+      console.log('login pwd', pwd);
 
       this.connection.open({
         apiUrl : Easemob.im.config.apiURL,
@@ -179,6 +181,12 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
         msg: msg,
         type: 'chat'
       };
+
+      if (msg === '') {
+        console.warn('message is empty');
+
+        return;
+      }
 
       if (self.textSending) {
         console.warn('text sending...');
@@ -257,26 +265,54 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
     appendMsg: function(isSelf, message) {
       var $container = $(selector.messageList);
       var content = '';
+      var msgResult = '';
+      var type = '';
+      var data = '';
 
       console.log('append message', message);
+      
+      // 解析文本
+      if (typeof message === 'string') {
+        message = Easemob.im.Helper.parseTextMessage(message);
+      } else if (typeof message === 'object') {
+        
+      } else {
+        console.warn('message is not string');
+
+        return;
+      }
+
+      console.log('message', message);
+
+      for (var i=0; i<message.body.length; i++) {
+        if (message.body[i].type === 'emotion') {
+          msgResult += '<img class="emotion" src="' + message.body[i].data + '"/>';
+        } else {
+          msgResult += message.body[i].data;
+        }
+      }
+
+      console.log('message result', msgResult);
 
       if (isSelf) {
         content = '<li class="msg-list-content me">' +
                     '<div class="pic">' + 
                       '<img src="images/avatar.png" alt="">' + 
                     '</div>' + 
-                    '<div>' + message + '</div>' + 
+                    '<div>' + msgResult + '</div>' + 
                   '</li>';
       } else {
         content = '<li class="msg-list-content guide">' +
                     '<div class="pic">' + 
                       '<img src="images/avatar.png" alt="">' + 
                     '</div>' + 
-                    '<div>' + message + '</div>' + 
+                    '<div>' + msgResult + '</div>' + 
                   '</li>';
       }
 
       $container.append(content);
+      ui.scrollToBottom();
+
 
     }
   };

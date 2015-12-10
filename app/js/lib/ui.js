@@ -7,6 +7,7 @@ define(['selector'], function(s) {
 
   var UI = function() {
     this.chat = null;
+    this.hasEmotion = false;
   }
 
   UI.prototype = {
@@ -20,6 +21,8 @@ define(['selector'], function(s) {
       this.bindLogin();
       this.bindInputSend();
       this.bindSendImage();
+      this.bindEmotionToggle();
+      this.bindEmotionSelect();
     },
     
     showLogin: function() {
@@ -30,6 +33,7 @@ define(['selector'], function(s) {
     showChat: function() {
       $(s.login).hide();
       $(s.chat).show();
+      this.focusInputMessage();
     },
     // 绑定登录事件
     bindLogin: function() {
@@ -82,6 +86,64 @@ define(['selector'], function(s) {
 
       })
     },
+
+    bindEmotionToggle: function() {
+      var self = this;
+
+      $(s.emotionToggle).on('click', function() {
+        if (!self.hasEmotion) {
+          self.createEmotion();
+        }
+
+        self.hasEmotion = true;
+        self.toggleEmotion();
+
+      });
+    },
+
+    bindEmotionSelect: function() {
+      var self = this;
+      var $eleInput = $(s.message);
+
+      $(s.emotionContainer).on('click', 'img', function() {
+        
+        $eleInput.val( $eleInput.val() + this.id );
+
+        self.focusInputMessage();
+
+        self.toggleEmotion();
+
+      });
+    },
+
+    scrollToBottom: function() {
+      var $ele = $(s.messageContainer);
+
+      $ele.scrollTop($ele[0].scrollHeight);
+    },
+
+    toggleEmotion: function() {
+      $(s.emotionContainer).toggle();
+    },
+
+    createEmotion: function() {
+      var data = Easemob.im.Helper.EmotionPicData;
+
+      for (var key in data) {
+        var emotions = $('<img>').attr({
+          'id': key,
+          'src': data[key]
+        });
+
+        $('<li>').append(emotions).appendTo($(s.emotionContainer));
+      }
+
+      console.log(data);
+    },
+
+    focusInputMessage: function() {
+      $(s.message).focus();
+    }
   }
 
   return new UI();
