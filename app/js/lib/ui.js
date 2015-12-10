@@ -97,6 +97,7 @@ define(['selector'], function(s) {
 
         self.hasEmotion = true;
         self.toggleEmotion();
+        self.focusInputMessage();
 
       });
     },
