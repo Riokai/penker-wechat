@@ -104,6 +104,10 @@ body {
           height: $emotion-size;
         }
 
+        .image {
+          max-width: 100%;
+        }
+
         .pic {
           position: absolute;
           top: -3px;
@@ -257,6 +261,7 @@ body {
       position: absolute;
       bottom: $chat-input-height;
       width: 100%;
+      background-color: #fff;
 
       li {
         float: left;

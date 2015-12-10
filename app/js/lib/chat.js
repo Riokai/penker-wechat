@@ -3,7 +3,7 @@
  * @author Kai
  */
 
-define(['selector', 'ui', 'config'], function(selector, ui) {
+define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
 // define(['Easemob', 'selector', 'ui', 'config'], function(Easemob, selector, ui) {
 
   var Chat = function() {
@@ -65,6 +65,7 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
           self.handleEmotionMessage(msg);
         },
         onPictureMessage: function(msg) {
+          console.log('receive picture message', msg);
           self.handlePictureMessage(msg);
         },
         //收到联系人订阅请求的回调方法
@@ -165,35 +166,38 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
       var msgName = message.filename;
       // 文件发送者
       var msgFrom = message.from;
+      var msgTo = message.to;
       var msgType = message.type;
       var options = message;
 
-      options.onFileDownloadComplete = function(res, xhr) {
-        var objUrl = Easemob.im.Helper.parseDownloadResponse.call(this, response);
+      this.appendMsg(msgFrom, msgTo, {
+        data: [{
+          type: 'pic',
+          filename: message.filename,
+          data: message.url
+        }]
+      });
 
-        var img = document.createElement('img');
+      // options.onFileDownloadComplete = function(res, xhr) {
+      //   var objUrl = Easemob.im.Helper.parseDownloadResponse.call(this, response);
 
-        img.onload = function(e) {
-          img.onload = null;
-
-
-        }
-      };
+        
+      // };
 
       // 下载失败时重新下载（1次）
-      options.onFileDownloadError = function(err) {
-        if (redownLoadFileNum < 1) {
-          redownLoadFileNum++;
+      // options.onFileDownloadError = function(err) {
+      //   if (redownLoadFileNum < 1) {
+      //     redownLoadFileNum++;
 
-          Easemob.im.Helper.donwload(options);
-        } else {
+      //     Easemob.im.Helper.donwload(options);
+      //   } else {
 
-        }
-      }
+      //   }
+      // }
 
-      var redownLoadFileNum = 0;
+      // var redownLoadFileNum = 0;
 
-      Easemob.im.Helper.donwload(options);
+      // Easemob.im.Helper.donwload(options);
     },
 
     login: function(name, pwd) {
@@ -276,6 +280,7 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
       fileType = fileObj.filetype;
       fileName = fileObj.filename;
 
+
       if (fileType in self.picType) {
         var opt = {
           fileInputId: id,
@@ -285,6 +290,22 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
             console.error('err', err);
           },
           onFileUploadComplete: function(data) {
+            var file = $(selector.inputImage)[0];
+            var objURL = '';
+
+            if (file && file.files) {
+              objURL = utils.getObjectURL(file.files[0]);
+              console.log('objURl', objURL);
+            }
+
+            self.appendMsg(self.curUserId, to, {
+              data: [{
+                type: 'pic',
+                filename: fileName,
+                data: objURL
+              }]
+            });
+
             console.log('send image complete');
             console.log('data', data);
           }
@@ -323,6 +344,8 @@ define(['selector', 'ui', 'config'], function(selector, ui) {
         for (var i=0; i<message.data.length; i++) {
           if (message.data[i].type === 'emotion') {
             msgResult += '<img class="emotion" src="' + message.data[i].data + '"/>';
+          } else if (message.data[i].type === 'pic') {
+            msgResult += '<img class="image" src="' + message.data[i].data + '"/>';
           } else {
             msgResult += message.data[i].data;
           }

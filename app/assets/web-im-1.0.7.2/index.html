@@ -1358,6 +1358,7 @@
     };
     //显示聊天记录的统一处理方法
     var appendMsg = function(who, contact, message, chattype) {
+        console.log('message', message);
         var contactUL = document.getElementById("contactlistUL");
         var contactDivId = contact;
         if (chattype && chattype == 'groupchat') {
