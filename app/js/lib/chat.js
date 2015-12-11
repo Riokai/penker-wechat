@@ -326,6 +326,8 @@ define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
       var msgResult = '';
       var type = '';
       var data = '';
+      var isImage = false;
+      var $content = null;
 
       console.log('typeof message = ', typeof message);
       
@@ -345,6 +347,8 @@ define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
           if (message.data[i].type === 'emotion') {
             msgResult += '<img class="emotion" src="' + message.data[i].data + '"/>';
           } else if (message.data[i].type === 'pic') {
+            isImage = true;
+
             msgResult += '<img class="image" src="' + message.data[i].data + '"/>';
           } else {
             msgResult += message.data[i].data;
@@ -372,6 +376,20 @@ define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
                     '</div>' + 
                     '<div>' + msgResult + '</div>' + 
                   '</li>';
+      }
+
+      if (isImage) {
+        $content = $(content);
+
+        $content
+          .find('.image')
+          .on('load', function() {
+            ui.scrollToBottom();            
+          });
+
+        $container.append($content);
+
+        return;
       }
 
       $container.append(content);

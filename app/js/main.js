@@ -1,5 +1,5 @@
 requirejs.config({
-  baseUrl: '/view/js/lib',
+  baseUrl: '/js/lib',
   paths: {
     // sdk: '../assets/web-im-1.0.7.2/sdk',
     // Easemob: '../../assets/web-im-1.0.7.2/sdk/easemob.im-1.0.7',
