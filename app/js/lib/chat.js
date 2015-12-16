@@ -6,7 +6,7 @@
 define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
 // define(['Easemob', 'selector', 'ui', 'config'], function(Easemob, selector, ui) {
 
-  var Chat = function() {
+  var Chat = function(data) {
     this.connection = null;
     this.curUserId = '';
     // this.curChatUserId = '';
@@ -16,6 +16,10 @@ define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
     this.toRoster = [];
 
     this.textSending = false;
+
+    this.userName = data.name;
+    this.userPwd = data.password;
+    this.curChatUserId = data.to;
 
     this.picType = {
       jpg: true,
@@ -41,14 +45,14 @@ define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
         https : Easemob.im.config.https,
         url: Easemob.im.config.xmppURL,
         onOpened: function() {
-          console.log('connecion open');
+          alert('登录成功')
           self.handleOpened(self.connection);
         },
         onClosed: function() {
           self.handleClosed();
         },
-        onError: function() {
-          self.handleError();
+        onError: function(msg) {
+          self.handleError(msg);
         },
         onRoster: function() {
 
@@ -74,6 +78,8 @@ define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
           // self.handlePresence(message);
         },
       });
+
+      self.login(self.userName, self.userPwd);
     },
 
     config: function() {
@@ -141,6 +147,7 @@ define(['selector', 'ui', 'utils', 'config'], function(selector, ui, utils) {
 
     handleError: function(message) {
       console.error('error', message);
+      alert('error' + message.toString());
     },
 
     handleTextMessage: function(message) {

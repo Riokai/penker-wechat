@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+</head>
+<body>
+
+111
+  <audio src="./coins.mp3" id="audio"></audio>
+  <button id="btn">Play</button>
+  <button id="btn2">Play2</button>
+  <audio id="audio2" src=""></audio>
+  <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=YOUR_KEY"></script>
+  <script>
+
+  var oAudio = document.getElementById('audio');
+  var oAudio2 = document.getElementById('audio2');
+  var oBtn = document.getElementById('btn');
+  var oBtn2 = document.getElementById('btn2');
+
+  oBtn.onclick = function() {
+    oAudio.play();
+  };
+
+  oBtn2.onclick = function() {
+    oAudio2.play();
+  };
+
+
+  navigator.getMedia = ( navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia ||
+                         navigator.msGetUserMedia);
+
+  navigator.getMedia (
+
+     // constraints
+     {
+        // video: true,
+        audio: true
+     },
+
+     // successCallback
+     function(localMediaStream) {
+        var video = document.querySelector('#audio2');
+        video.src = window.URL.createObjectURL(localMediaStream);
+        video.onloadedmetadata = function(e) {
+           // Do something with the video here.
+        };
+     },
+
+     // errorCallback
+     function(err) {
+      console.log("The following error occured: ", err);
+     }
+
+  );
+
+  </script>
+</body>
+</html>

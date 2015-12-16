@@ -23,7 +23,11 @@ requirejs.config({
 
 require(['chat', 'ui'], function(Chat, ui) {
 
-  var chat = new Chat();
+  var chat = new Chat({
+    name: user_id,
+    password: user_password,
+    to: guide_id
+  });
   
   ui.init(chat);
   chat.init();
